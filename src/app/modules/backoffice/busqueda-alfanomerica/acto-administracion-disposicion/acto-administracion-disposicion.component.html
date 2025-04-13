@@ -1,0 +1,39 @@
+<div class="p-2">
+    <button class='btn btn-primary'>
+        <i class="bi bi-plus-lg"></i> Agregar
+    </button>
+</div>
+<div class="card">
+    <p-table [value]="elementos" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }"
+        [rowsPerPageOptions]="[5, 10, 20]">
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="item" style="width:15%">ITEM <p-sortIcon field="item" /></th>
+                <th pSortableColumn="detalle" style="width:20%">DETALLE DE ACTO <p-sortIcon field="detalle" /></th>
+                <th pSortableColumn="institucion" style="width:22%">INSTITUCIÓN FAVORECIDA <p-sortIcon
+                        field="institucion" /></th>
+                <th pSortableColumn="are" style="width:20%">ÁREA DISPUESTA <p-sortIcon field="are" /></th>
+                <th pSortableColumn="vigente" style="width:10%">VIGENTE <p-sortIcon field="vigente" /></th>
+                <th style="width:13%">ACCIÓN <p-sortIcon field="item" /></th>
+
+            </tr>
+        </ng-template>
+        <ng-template #body let-elemento>
+            <tr>
+                <td>{{ elemento.item}}</td>
+                <td>{{ elemento.detalle}}</td>
+                <td>{{ elemento.InstitucionFavorecida}}</td>
+                <td>{{ elemento.areaDispuesta}}</td>
+                <td>{{ elemento.vigente}}</td>
+                <td>
+                    <button class='btn btn-success' (click)="modificarActo()">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button class='btn btn-danger' (click)="quitarActo()">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
