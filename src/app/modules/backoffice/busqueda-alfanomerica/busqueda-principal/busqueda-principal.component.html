@@ -1,117 +1,164 @@
 <div class="card">
-    <div class="card-header">
-        <h2 class="text-center">Búsqueda Alfanumérica</h2>
-    </div>
+  <div class="card-header">
+    <h2 class="text-center">Búsqueda Alfanumérica</h2>
+  </div>
 
-    <div class="card-body">
+  <div class="card-body">
+    <fieldset class="border rounded-3 p-3">
+      <form [formGroup]="busquedaPredioForm">
+        <div class="row g-3">
+          <div class="col-lg-2 col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              maxlength="11"
+              formControlName="inputRuc"
+              placeholder="RUC"
+            />
+          </div>
 
-        <fieldset class="border rounded-3 p-3">
-            <div class="row g-3">
-                <div class="col-lg-2 col-md-6 form-group">
-                    <select class="form-control select2">
-                        <option selected="selected">CUS</option>
-                        <option>RUC</option>
-                    </select>
-                </div>
+          <div class="col-lg-2 col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              maxlength="11"
+              formControlName="inputCus"
+              placeholder="CUS"
+            />
+          </div>
+          <div class="col-lg-2 col-md-4">
+            <button
+              type="button"
+              class="btn btn-primary btn-block"
+              (click)="onClickBuscarPredio()"
+            >
+              <i class="bi bi-search"></i>&nbsp;Buscar
+            </button>
+          </div>
+          <div class="col-lg-2 col-md-4">
+            <button type="button" class="btn btn-success btn-block">
+              <i class="bi bi-zoom-in"></i>&nbsp;Avanzada
+            </button>
+          </div>
+          <div class="col-lg-2 col-md-4">
+            <button
+              type="button"
+              class="btn btn-danger btn-block"
+              (click)="onClickLimpiarPredio()"
+            >
+              <i class="bi bi-trash3-fill"></i>&nbsp;Limpiar
+            </button>
+          </div>
 
-                <div class="col-lg-2 col-md-6">
-                    <input type="text" class="form-control" placeholder="RUC" value="204060">
-                </div>
-                <div class="col-lg-2 col-md-4">
-                    <button type="button" class="btn btn-primary  btn-block"><i class="bi bi-search"></i>&nbsp;Buscar </button>
-                </div>
-                <div class="col-lg-2 col-md-4">
-                    <button type="button" class="btn btn-success  btn-block"><i class="bi bi-zoom-in"></i>&nbsp;Avanzada </button>
-                </div>
-                <div class="col-lg-2 col-md-4">
-                    <button type="button" class="btn btn-danger  btn-block"><i class="bi bi-trash3-fill"></i>&nbsp;Limpiar</button>
-                </div>
-
-                <div class="col-lg-1 col-md-3">
-                    <button type="button" class="btn btn-light">
-                        <img class="img" src="pdf.png">
-                    </button>
-                </div>
-                <div class="col-lg-1 col-md-3">
-                    <button type="button" class="btn btn-light">
-                        <img class="img" src="excel.png">
-                    </button>
-                </div>
-            </div>
-        </fieldset>
-
-
-        <div class="card my-2">
-
-            <p-table [value]="elementos" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }"
-                [rowsPerPageOptions]="[5, 10, 20]">
-                <ng-template #header>
-                    <tr>
-                        <th style="width:5%">ITEM </th>
-                        <th style="width:5%">NRO. CUS</th>
-                        <th style="width:15%">DENOMINACIÓN DEL PREDIO</th>
-                        <th style="width:10%">DEP.</th>
-                        <th style="width:10%">PROV.</th>
-                        <th style="width:10%">DIST.</th>
-                        <th style="width:5%">TIPO PARTIDA</th>
-                        <th style="width:10%">TITULAR</th>
-                        <th style="width:10%">ÁREA m²</th>
-                        <th style="width:10%">SITUACÓN</th>
-                        <th style="width:10%">VISUALIZAR</th>
-                    </tr>
-                </ng-template>
-                <ng-template #body let-elemento>
-                    <tr>
-                        <td>{{ elemento.id}}</td>
-                        <td>{{ elemento.codigo }}</td>
-                        <td>{{ elemento.nombre }}</td>
-                        <td>{{ elemento.departamento }}</td>
-                        <td>{{ elemento.provincia }}</td>
-                        <td>{{ elemento.distrito }}</td>
-                        <td>{{ elemento.partida_electronica }}</td>
-                        <td>{{ elemento.titular }}</td>
-                        <td>{{ elemento.area_m2 }}</td>
-                        <td>{{ elemento.condicion }}</td>
-                        <td>
-                            <p-button (click)="showDialog()"><i class="bi bi-window-desktop"></i></p-button>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>            
+          <div class="col-lg-1 col-md-3">
+            <button type="button" class="btn btn-light">
+              <img class="img" src="pdf.png" />
+            </button>
+          </div>
+          <div class="col-lg-1 col-md-3">
+            <button type="button" class="btn btn-light">
+              <img class="img" src="excel.png" />
+            </button>
+          </div>
         </div>
-        <div class="card my-2">
-            <p-dialog [modal]="true" [(visible)]="visible" [style]="{ width: '80rem' }"
-                [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-                <ng-template pTemplate="header">
-                    <div class="text-center w-100">
-                        <h2>Información del Predio Nº de CUS: 12345 - TIPO DE CUS: ESTATAL</h2>
-                    </div>
-                </ng-template>
+      </form>
+    </fieldset>
 
-                <div class="card">
-                    <div class="card-header">
-                      <ul class="nav nav-tabs custom-nav flex-wrap mb-3">
-                        <li class="nav-item">
-                            <a class="nav-link" (click)="loadComponent('datos-generales')"
-                              [class.active]="currentComponent === 'datos-generales'"> Datos generales</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" (click)="loadComponent('adquisicion')"
-                              [class.active]="currentComponent === 'adquisicion'">Adquisicion e Inscripcion</a>
-                          </li>
-                        <li class="nav-item">
-                          <a class="nav-link" (click)="loadComponent('actos')"
-                          [class.active]="currentComponent === 'actos'">Actos de Administración y Disposición</a>
-                        </li>
-                      </ul>
-    
-                    </div>
-                    <div class="card-body">
-                      <ng-container #dynamicComponentContainer></ng-container>
-                    </div>
-                  </div>
-            </p-dialog>
-
-        </div>
+    <div class="card my-2">
+      
+      <p-table
+        [value]="oBusquedaPredios"
+        [paginator]="true"
+        [rows]="5"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        
+      >
+        <ng-template #header>
+          <tr style="font-size: 12px">
+            <th style="width: 5%">ITEM</th>
+            <th style="width: 5%">NRO. CUS</th>
+            <th style="width: 15%">DENOMINACIÓN DEL PREDIO</th>
+            <th style="width: 10%">DEP.</th>
+            <th style="width: 10%">PROV.</th>
+            <th style="width: 10%">DIST.</th>
+            <th style="width: 5%">TIPO PARTIDA</th>
+            <th style="width: 20%">TITULAR</th>
+            <th style="width: 5%">ÁREA m²</th>
+            <th style="width: 5%">VISUALIZAR</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-predios>
+          <tr style="font-size: 10px">
+            <td>{{ predios.item }}</td>
+            <td>{{ predios.numeroSinabip }}</td>
+            <td>{{ predios.denominacionInmueble }}</td>
+            <td>{{ predios.nombreDepartamento }}</td>
+            <td>{{ predios.nombreProvincia }}</td>
+            <td>{{ predios.nombreDistrito }}</td>
+            <td>{{ predios.codigoPartida }}</td>
+            <td>{{ predios.nmbEntidad }}</td>
+            <td>{{ predios.areaRegistral }}</td>
+            <td>
+              <p-button (click)="showDialog()"
+                ><i class="bi bi-window-desktop"></i
+              ></p-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
+    <div class="card flex justify-center my-2">
+      <p-dialog
+        [modal]="true"
+        [(visible)]="visible"
+        [style]="{ width: '80rem' }"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+        [maximizable]="true"
+      >
+        <ng-template pTemplate="header">
+          <div class="text-center w-100">
+            <h2>
+              Información del Predio Nº de CUS: 12345 - TIPO DE CUS: ESTATAL
+            </h2>
+          </div>
+        </ng-template>
+
+        <div class="card">
+          <div class="card-header">
+            <ul class="nav nav-tabs custom-nav flex-wrap mb-3">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  (click)="loadComponent('datos-generales')"
+                  [class.active]="currentComponent === 'datos-generales'"
+                >
+                  Datos generales</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  (click)="loadComponent('adquisicion')"
+                  [class.active]="currentComponent === 'adquisicion'"
+                  >Adquisicion e Inscripcion</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  (click)="loadComponent('actos')"
+                  [class.active]="currentComponent === 'actos'"
+                  >Actos de Administración y Disposición</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <ng-container #dynamicComponentContainer></ng-container>
+          </div>
+        </div>
+      </p-dialog>
+    </div>
+  </div>
 </div>

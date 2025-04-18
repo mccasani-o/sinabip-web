@@ -1,33 +1,87 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { BusquedaAlfanumericaService } from '../../../../core/service/busqueda-alfanumerica.service';
+import { BusquedaAlfanumericaRequest } from '../../../../core/interfaces/busqueda-alfanumerica-request';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { BusquedaAlfanumericaResponse } from '../../../../core/interfaces/busqueda-alfanumerica-response';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
+  standalone: true,
   selector: 'app-busqueda-principal',
-  imports: [TableModule, CommonModule, Dialog, ButtonModule],
+  imports: [TableModule, Dialog, ButtonModule, ReactiveFormsModule],
   templateUrl: './busqueda-principal.component.html',
   styleUrl: './busqueda-principal.component.css',
 })
 export class BusquedaPrincipalComponent implements OnInit {
-  elementos: any[] = [];
+  oBusquedaPredios: BusquedaAlfanumericaResponse[] = [];
   visible: boolean = false;
-
+  busquedaPredioForm!: FormGroup;
+  
   currentComponent = 'datos-generales';
-
   @ViewChild('dynamicComponentContainer', { read: ViewContainerRef })
   private container!: ViewContainerRef;
 
   constructor(
-    private busquedaAlfanumericaService: BusquedaAlfanumericaService
+    private busquedaAlfanumericaService: BusquedaAlfanumericaService,
+    private fb: FormBuilder,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
-    this.busquedaAlfanumericaService.getCustomersLarge().then((elementos) => {
-      this.elementos = elementos;
+    debugger;
+    this.busquedaPredioForm = this.fb.group({
+      inputRuc: [''],
+      inputCus: [''], 
     });
+  }
+
+  onClickBuscarPredio() {
+    
+    if (this.busquedaPredioForm.invalid) {
+      return;
+    }
+    this.spinner.show();
+   
+
+    const request: BusquedaAlfanumericaRequest = {
+      rucEntidad: this.busquedaPredioForm.get('inputRuc')?.value || null,
+      cus: this.busquedaPredioForm.get('inputCus')?.value ||  null,
+      codigoDepartamento: null,
+      codigoProvincia: null,
+      codigoDistrito: null,
+      direccion: null,
+      propietario: null,
+      areaMinima: null,
+      areaMaxima: null,
+      tipoPartida: null,
+      numeroSolictudIngreso: null,
+      ocurrencia: null,
+      pagina: '1',
+      numeroPagina: '10000',
+    };
+
+    this.busquedaAlfanumericaService.buscarPredios(request).subscribe({
+      next: (response) => {
+        this.oBusquedaPredios = response.data;
+        this.spinner.hide();
+      },
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.loadComponent(this.currentComponent);
+  }
+
+  onClickLimpiarPredio() {
+    this.busquedaPredioForm.reset();  
+    this.oBusquedaPredios = [];  
   }
 
   showDialog() {

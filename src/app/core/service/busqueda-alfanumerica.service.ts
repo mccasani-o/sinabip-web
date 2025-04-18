@@ -1,11 +1,24 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BusquedaAlfanumericaRequest } from '../interfaces/busqueda-alfanumerica-request';
+import { BusquedaResponse } from '../interfaces/busqueda-response';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BusquedaAlfanumericaService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  private apiUrl = 'http://localhost:8080/api/v1/busqueda/avanzado/predios';
+
+
+
+  buscarPredios(request: BusquedaAlfanumericaRequest): Observable<BusquedaResponse> {
+    return this.http.post<BusquedaResponse>(this.apiUrl, request);
+  }
+  
   getData() {
     return [
       {
