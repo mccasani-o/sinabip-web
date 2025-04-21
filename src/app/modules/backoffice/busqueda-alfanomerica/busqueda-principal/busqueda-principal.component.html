@@ -31,6 +31,7 @@
               type="button"
               class="btn btn-primary btn-block"
               (click)="onClickBuscarPredio()"
+              [disabled]="busquedaPredioForm.invalid"
             >
               <i class="bi bi-search"></i>&nbsp;Buscar
             </button>
@@ -65,14 +66,18 @@
     </fieldset>
 
     <div class="card my-2">
-      
       <p-table
         [value]="oBusquedaPredios"
-        [paginator]="true"
-        [rows]="5"
         [tableStyle]="{ 'min-width': '50rem' }"
-        [rowsPerPageOptions]="[5, 10, 20]"
-        
+        [paginator]="true"
+        [rows]="rows"
+        [first]="first"
+        [totalRecords]="totalRecords"
+        [lazy]="true"
+        (onLazyLoad)="loadPrediosLazy($event)"
+        [rowsPerPageOptions]="[5, 10, 20, 50]"
+        [loading]="loading"
+        [paginatorPosition]="'both'"
       >
         <ng-template #header>
           <tr style="font-size: 12px">

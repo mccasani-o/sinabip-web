@@ -4,11 +4,7 @@ import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { BusquedaAlfanumericaService } from '../../../../core/service/busqueda-alfanumerica.service';
 import { BusquedaAlfanumericaRequest } from '../../../../core/interfaces/busqueda-alfanumerica-request';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BusquedaAlfanumericaResponse } from '../../../../core/interfaces/busqueda-alfanumerica-response';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -23,7 +19,13 @@ export class BusquedaPrincipalComponent implements OnInit {
   oBusquedaPredios: BusquedaAlfanumericaResponse[] = [];
   visible: boolean = false;
   busquedaPredioForm!: FormGroup;
-  
+  first = 0;
+  rows = 5;
+  totalRecords: number = 0;
+  tamanioPagina: number = 5; // Tamaño inicial de la página
+  loading: boolean = false;
+  lastRequest: BusquedaAlfanumericaRequest | null = null;
+
   currentComponent = 'datos-generales';
   @ViewChild('dynamicComponentContainer', { read: ViewContainerRef })
   private container!: ViewContainerRef;
@@ -35,24 +37,38 @@ export class BusquedaPrincipalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    debugger;
+    this.initForm();
+  }
+
+  private initForm(): void {
     this.busquedaPredioForm = this.fb.group({
       inputRuc: [''],
-      inputCus: [''], 
+      inputCus: [''],
     });
   }
 
-  onClickBuscarPredio() {
-    
+  onClickBuscarPredio(): void {
     if (this.busquedaPredioForm.invalid) {
       return;
     }
-    this.spinner.show();
-   
+    // Resetear paginación al hacer una nueva búsqueda
+    this.first = 0;
+    this.loadPredios(1, this.rows);
+  }
+  loadPrediosLazy(event: any): void {
+    if (!this.lastRequest) return; // No hacer nada si no hay una búsqueda previa
+
+    const page = event.first! / event.rows! + 1;
+    this.loadPredios(page, event.rows!);
+  }
+
+  private loadPredios(page: number, pageSize: number): void {
+    this.loading = true;
+    //this.spinner.show();
 
     const request: BusquedaAlfanumericaRequest = {
       rucEntidad: this.busquedaPredioForm.get('inputRuc')?.value || null,
-      cus: this.busquedaPredioForm.get('inputCus')?.value ||  null,
+      cus: this.busquedaPredioForm.get('inputCus')?.value || null,
       codigoDepartamento: null,
       codigoProvincia: null,
       codigoDistrito: null,
@@ -63,14 +79,22 @@ export class BusquedaPrincipalComponent implements OnInit {
       tipoPartida: null,
       numeroSolictudIngreso: null,
       ocurrencia: null,
-      pagina: '1',
-      numeroPagina: '10000',
+      pagina: page.toString(),
+      numeroPagina: pageSize.toString(),
     };
+
+    this.lastRequest = request;
 
     this.busquedaAlfanumericaService.buscarPredios(request).subscribe({
       next: (response) => {
         this.oBusquedaPredios = response.data;
-        this.spinner.hide();
+        this.totalRecords = response.total;
+        this.loading = false;
+        //this.spinner.hide();
+      },
+      error: () => {
+        this.loading = false;
+        //this.spinner.hide();
       },
     });
   }
@@ -79,11 +103,13 @@ export class BusquedaPrincipalComponent implements OnInit {
     this.loadComponent(this.currentComponent);
   }
 
-  onClickLimpiarPredio() {
-    this.busquedaPredioForm.reset();  
-    this.oBusquedaPredios = [];  
+  onClickLimpiarPredio(): void {
+    this.busquedaPredioForm.reset();
+    this.oBusquedaPredios = [];
+    this.totalRecords = 0;
+    this.first = 0;
+    this.lastRequest = null;
   }
-
   showDialog() {
     this.visible = true;
   }
