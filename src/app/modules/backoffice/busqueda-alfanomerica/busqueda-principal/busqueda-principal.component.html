@@ -36,8 +36,13 @@
               <i class="bi bi-search"></i>&nbsp;Buscar
             </button>
           </div>
+
           <div class="col-lg-2 col-md-4">
-            <button type="button" class="btn btn-success btn-block">
+            <button
+              type="button"
+              class="btn btn-success btn-block"
+              (click)="showDialogAvanzada()"
+            >
               <i class="bi bi-zoom-in"></i>&nbsp;Avanzada
             </button>
           </div>
@@ -75,10 +80,9 @@
         [totalRecords]="totalRecords"
         [lazy]="true"
         (onLazyLoad)="loadPrediosLazy($event)"
-        [rowsPerPageOptions]="[5, 10, 20, 50]"
-        [loading]="loading"
-        [paginatorPosition]="'both'"
+        [rowsPerPageOptions]="[10, 20, 50]"
       >
+        <!-- [paginatorPosition]="'both'" -->
         <ng-template #header>
           <tr style="font-size: 12px">
             <th style="width: 5%">ITEM</th>
@@ -105,7 +109,7 @@
             <td>{{ predios.nmbEntidad }}</td>
             <td>{{ predios.areaRegistral }}</td>
             <td>
-              <p-button (click)="showDialog()"
+              <p-button (click)="showDialogDetalle()"
                 ><i class="bi bi-window-desktop"></i
               ></p-button>
             </td>
@@ -113,10 +117,102 @@
         </ng-template>
       </p-table>
     </div>
+    <div class="card flex justify-center">
+      <p-dialog
+        header="Búsqueda Avanzada"
+        [modal]="true"
+        [(visible)]="visibleAvanzado"
+        [style]="{ width: '50rem' }"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+        
+      >
+      <form>
+        <div class="row">
+          <div class="col-md-4 form-group">
+            <label for="cboDepartamento" class="form-label"
+              >Departamento</label
+            >
+            <select id="cboDepartamento" class="form-control select2">
+              <option selected>::Seleccionar::</option>
+              @for (departamento of departamentos; track $index) {
+              <option [value]="departamento.codigoDepartamento">
+                {{ departamento.descripcion }}
+              </option>
+              }
+            </select>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="cboProvincia" class="form-label">Provincia</label>
+            <select id="cboProvincia" class="form-control select2">
+              <option selected>::Seleccionar::</option>
+            </select>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="cboDistrito" class="form-label">Distrito</label>
+            <select id="cboDistrito" class="form-control select2">
+              <option selected>::Seleccionar::</option>
+            </select>
+          </div>
+
+          <div class="col-md-8">
+            <label for="txtDirección" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="txtDirección" />
+          </div>
+          <div class="col-md-4">
+            <label for="txtNroSI" class="form-label">Nº de SI</label>
+            <input type="text" class="form-control" id="txtNroSI" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="txtTitular" class="form-label">Titular</label>
+            <input type="text" class="form-control" id="txtTitular" />
+          </div>
+          <div class="col-md-4">
+            <label for="txtAreaMin" class="form-label"
+              >Área mínima en m²</label
+            >
+            <input type="text" class="form-control" id="txtAreaMin" />
+          </div>
+          <div class="col-md-4">
+            <label for="txtAreMax" class="form-label"
+              >Área máxima en m²</label
+            >
+            <input type="text" class="form-control" id="txtAreMax" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="cboPartida" class="form-label">Partida</label>
+            <select id="cboPartida" class="form-control select2">
+              <option selected>::Seleccionar::</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="txtNumero" class="form-label"> Número</label>
+            <input type="text" class="form-control" id="txtNumero" />
+          </div>
+          <div class="col-md-12">
+            <label for="txtOcurrencia" class="form-label"
+              >Ocurrencia</label
+            >
+            <input type="text" class="form-control" id="txtOcurrencia" />
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+          <button type="button" class="btn btn-primary me-3" (click)="btnBuscarAvanzado()">
+            <i class="bi bi-search"></i> Buscar
+          </button>&nbsp;
+          <button type="button" class="btn btn-secondary" (click)="btnLimpiarFormularioAvanzado()">
+            <i class="bi bi-x-circle"></i> Limpiar
+          </button>
+        </div>
+      </form>
+      </p-dialog>
+    </div>
+
     <div class="card flex justify-center my-2">
       <p-dialog
         [modal]="true"
-        [(visible)]="visible"
+        [(visible)]="visibleDetalle"
         [style]="{ width: '80rem' }"
         [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
         [maximizable]="true"
@@ -165,5 +261,6 @@
         </div>
       </p-dialog>
     </div>
+    
   </div>
 </div>

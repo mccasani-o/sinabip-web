@@ -7,6 +7,9 @@ import { BusquedaAlfanumericaRequest } from '../../../../core/interfaces/busqued
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BusquedaAlfanumericaResponse } from '../../../../core/interfaces/busqueda-alfanumerica-response';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { UbigeoRequest } from '../../../../core/interfaces/ubigeo-request';
+import { UbigeoResponse } from '../../../../core/interfaces/ubigeo-response';
+import { Ubigeo } from '../../../../core/interfaces/ubigeo';
 
 @Component({
   standalone: true,
@@ -16,15 +19,32 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrl: './busqueda-principal.component.css',
 })
 export class BusquedaPrincipalComponent implements OnInit {
+btnLimpiarFormularioAvanzado() {
+throw new Error('Method not implemented.');
+}
+btnBuscarAvanzado() {
+throw new Error('Method not implemented.');
+}
   oBusquedaPredios: BusquedaAlfanumericaResponse[] = [];
-  visible: boolean = false;
+  departamentos: Ubigeo[] = [];
+  visibleDetalle: boolean = false;
+  visibleAvanzado: boolean = false;
+  modalAvanzado: boolean = false;
   busquedaPredioForm!: FormGroup;
+
   first = 0;
-  rows = 5;
+  rows = 10;
   totalRecords: number = 0;
-  tamanioPagina: number = 5; // Tamaño inicial de la página
-  loading: boolean = false;
+  tamanioPagina: number = 10; // Tamaño inicial de la página
+  
   lastRequest: BusquedaAlfanumericaRequest | null = null;
+
+  requestUbigeo: UbigeoRequest = {
+    codigoDepartamento: '0',
+    codigoProvincia: '0',
+    codigoDistrito: '0',
+    tipo: 1,
+  };
 
   currentComponent = 'datos-generales';
   @ViewChild('dynamicComponentContainer', { read: ViewContainerRef })
@@ -38,6 +58,7 @@ export class BusquedaPrincipalComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.cargarDepartamentos('0', '0', '0', 1);
   }
 
   private initForm(): void {
@@ -63,8 +84,8 @@ export class BusquedaPrincipalComponent implements OnInit {
   }
 
   private loadPredios(page: number, pageSize: number): void {
-    this.loading = true;
-    //this.spinner.show();
+    //this.loading = true;
+    this.spinner.show();
 
     const request: BusquedaAlfanumericaRequest = {
       rucEntidad: this.busquedaPredioForm.get('inputRuc')?.value || null,
@@ -87,16 +108,38 @@ export class BusquedaPrincipalComponent implements OnInit {
 
     this.busquedaAlfanumericaService.buscarPredios(request).subscribe({
       next: (response) => {
-        this.oBusquedaPredios = response.data;
-        this.totalRecords = response.total;
-        this.loading = false;
-        //this.spinner.hide();
+        this.oBusquedaPredios = response.data.lista;
+        this.totalRecords = response.data.total;
+        //this.loading = false;
+        this.spinner.hide();
       },
       error: () => {
-        this.loading = false;
-        //this.spinner.hide();
+        //this.loading = false;
+        this.spinner.hide();
       },
     });
+  }
+
+  cargarDepartamentos(
+    codDepa: string,
+    codProv: string,
+    codDist: string,
+    tipo: number
+  ) {
+    debugger;
+    this.requestUbigeo.codigoDepartamento = codDepa;
+    this.requestUbigeo.codigoProvincia = codProv;
+    this.requestUbigeo.codigoDistrito = codDist;
+    this.requestUbigeo.tipo = tipo;
+    debugger;
+    this.busquedaAlfanumericaService.buscarUbigeo(this.requestUbigeo).subscribe(
+      (response: UbigeoResponse) => {
+        this.departamentos = response.data;
+      },
+      (error) => {
+        console.error('Error al cargar departamentos', error);
+      }
+    );
   }
 
   ngAfterViewInit(): void {
@@ -110,8 +153,15 @@ export class BusquedaPrincipalComponent implements OnInit {
     this.first = 0;
     this.lastRequest = null;
   }
-  showDialog() {
-    this.visible = true;
+
+  showDialogAvanzada() {
+    debugger;
+    this.visibleAvanzado=true;
+  }
+
+  showDialogDetalle() {
+    debugger;
+    this.visibleDetalle = true;
   }
 
   async loadComponent(componentName: string) {
