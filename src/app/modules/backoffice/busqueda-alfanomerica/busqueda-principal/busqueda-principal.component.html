@@ -124,88 +124,93 @@
         [(visible)]="visibleAvanzado"
         [style]="{ width: '50rem' }"
         [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-        
       >
-      <form>
-        <div class="row">
-          <div class="col-md-4 form-group">
-            <label for="cboDepartamento" class="form-label"
-              >Departamento</label
-            >
-            <select id="cboDepartamento" class="form-control select2">
-              <option selected>::Seleccionar::</option>
-              @for (departamento of departamentos; track $index) {
-              <option [value]="departamento.codigoDepartamento">
-                {{ departamento.descripcion }}
-              </option>
-              }
-            </select>
-          </div>
-          <div class="col-md-4 form-group">
-            <label for="cboProvincia" class="form-label">Provincia</label>
-            <select id="cboProvincia" class="form-control select2">
-              <option selected>::Seleccionar::</option>
-            </select>
-          </div>
-          <div class="col-md-4 form-group">
-            <label for="cboDistrito" class="form-label">Distrito</label>
-            <select id="cboDistrito" class="form-control select2">
-              <option selected>::Seleccionar::</option>
-            </select>
-          </div>
+        <form>
+          <div class="row">
+            <div class="col-md-4 form-group">
+              <label for="cboDepartamento" class="form-label"
+                >Departamento</label
+              >
+              <select id="cboDepartamento" class="form-control select2">
+                <option selected>::Seleccionar::</option>
+                @for (departamento of departamentos; track $index) {
+                <option [value]="departamento.codigoDepartamento">
+                  {{ departamento.descripcion }}
+                </option>
+                }
+              </select>
+            </div>
+            <div class="col-md-4 form-group">
+              <label for="cboProvincia" class="form-label">Provincia</label>
+              <select id="cboProvincia" class="form-control select2">
+                <option selected>::Seleccionar::</option>
+              </select>
+            </div>
+            <div class="col-md-4 form-group">
+              <label for="cboDistrito" class="form-label">Distrito</label>
+              <select id="cboDistrito" class="form-control select2">
+                <option selected>::Seleccionar::</option>
+              </select>
+            </div>
 
-          <div class="col-md-8">
-            <label for="txtDirección" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="txtDirección" />
-          </div>
-          <div class="col-md-4">
-            <label for="txtNroSI" class="form-label">Nº de SI</label>
-            <input type="text" class="form-control" id="txtNroSI" />
-          </div>
+            <div class="col-md-8">
+              <label for="txtDirección" class="form-label">Dirección</label>
+              <input type="text" class="form-control" id="txtDirección" />
+            </div>
+            <div class="col-md-4">
+              <label for="txtNroSI" class="form-label">Nº de SI</label>
+              <input type="text" class="form-control" id="txtNroSI" />
+            </div>
 
-          <div class="col-md-4">
-            <label for="txtTitular" class="form-label">Titular</label>
-            <input type="text" class="form-control" id="txtTitular" />
-          </div>
-          <div class="col-md-4">
-            <label for="txtAreaMin" class="form-label"
-              >Área mínima en m²</label
-            >
-            <input type="text" class="form-control" id="txtAreaMin" />
-          </div>
-          <div class="col-md-4">
-            <label for="txtAreMax" class="form-label"
-              >Área máxima en m²</label
-            >
-            <input type="text" class="form-control" id="txtAreMax" />
-          </div>
+            <div class="col-md-4">
+              <label for="txtTitular" class="form-label">Titular</label>
+              <input type="text" class="form-control" id="txtTitular" />
+            </div>
+            <div class="col-md-4">
+              <label for="txtAreaMin" class="form-label"
+                >Área mínima en m²</label
+              >
+              <input type="text" class="form-control" id="txtAreaMin" />
+            </div>
+            <div class="col-md-4">
+              <label for="txtAreMax" class="form-label"
+                >Área máxima en m²</label
+              >
+              <input type="text" class="form-control" id="txtAreMax" />
+            </div>
 
-          <div class="col-md-4">
-            <label for="cboPartida" class="form-label">Partida</label>
-            <select id="cboPartida" class="form-control select2">
-              <option selected>::Seleccionar::</option>
-            </select>
+            <div class="col-md-4">
+              <label for="cboPartida" class="form-label">Partida</label>
+              <select id="cboPartida" class="form-control select2">
+                <option selected>::Seleccionar::</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="txtNumero" class="form-label"> Número</label>
+              <input type="text" class="form-control" id="txtNumero" />
+            </div>
+            <div class="col-md-12">
+              <label for="txtOcurrencia" class="form-label">Ocurrencia</label>
+              <input type="text" class="form-control" id="txtOcurrencia" />
+            </div>
           </div>
-          <div class="col-md-4">
-            <label for="txtNumero" class="form-label"> Número</label>
-            <input type="text" class="form-control" id="txtNumero" />
-          </div>
-          <div class="col-md-12">
-            <label for="txtOcurrencia" class="form-label"
-              >Ocurrencia</label
+          <div class="d-flex justify-content-center mt-4">
+            <button
+              type="button"
+              class="btn btn-primary me-3"
+              (click)="btnBuscarAvanzado()"
             >
-            <input type="text" class="form-control" id="txtOcurrencia" />
+              <i class="bi bi-search"></i> Buscar</button
+            >&nbsp;
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="btnLimpiarFormularioAvanzado()"
+            >
+              <i class="bi bi-x-circle"></i> Limpiar
+            </button>
           </div>
-        </div>
-        <div class="d-flex justify-content-center mt-4">
-          <button type="button" class="btn btn-primary me-3" (click)="btnBuscarAvanzado()">
-            <i class="bi bi-search"></i> Buscar
-          </button>&nbsp;
-          <button type="button" class="btn btn-secondary" (click)="btnLimpiarFormularioAvanzado()">
-            <i class="bi bi-x-circle"></i> Limpiar
-          </button>
-        </div>
-      </form>
+        </form>
       </p-dialog>
     </div>
 
@@ -231,8 +236,8 @@
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  (click)="loadComponent('datos-generales')"
-                  [class.active]="currentComponent === 'datos-generales'"
+                  routerLink="datos-generales"
+                  routerLinkActive="active"
                 >
                   Datos generales</a
                 >
@@ -240,27 +245,23 @@
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  (click)="loadComponent('adquisicion')"
-                  [class.active]="currentComponent === 'adquisicion'"
+                  routerLink="adquisicion"
+                  routerLinkActive="active"
                   >Adquisicion e Inscripcion</a
                 >
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  (click)="loadComponent('actos')"
-                  [class.active]="currentComponent === 'actos'"
+                <a class="nav-link" routerLink="actos" routerLinkActive="active"
                   >Actos de Administración y Disposición</a
                 >
               </li>
             </ul>
           </div>
           <div class="card-body">
-            <ng-container #dynamicComponentContainer></ng-container>
+            <router-outlet />
           </div>
         </div>
       </p-dialog>
     </div>
-    
   </div>
 </div>

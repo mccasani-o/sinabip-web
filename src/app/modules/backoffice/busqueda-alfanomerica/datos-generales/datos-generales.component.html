@@ -1,149 +1,176 @@
 <div class="row">
+  <div class="col-md-2 form-group">
+    <label>Condición Registro</label>
+    <select
+      id="cboCondicionRegistro"
+      class="form-control select2"
+      style="width: 100%"
+    >
+      <option selected="selected">VIGENTE</option>
+    </select>
+  </div>
 
-    <div class="col-md-2 form-group">
-        <label>Condición Registro</label>
-        <select id="cboCondicionRegistro" class="form-control select2" style="width: 100%;">
-            <option selected="selected">VIGENTE</option>
-
-        </select>
-    </div>
-
-    <div class="col-md-2 form-group">
-        <label for="cboCompetencia">Competencia</label>
-        <select id="cboCompetencia" class="form-control select2">
-            <option selected>SBN SISTEMA NACIONAL</option>
-        </select>
-    </div>
-    <div class="col-md-4">
-        <label for="txtDenominaciónPredio" class="form-label">Denominación de Predio</label>
-        <textarea class="form-control" style="text-transform:uppercase; font-size: small;" maxlength="150"
-            cols="30">INSTITUCION EDUCATIVA N° 16478 - LOTE N° 4</textarea>
-    </div>
-    <div class="col-md-2 form-group">
-        <label for="txtReserva">Reserva</label>
-        <select id="txtReserva" class="form-control select2">
-            <option selected>Ninguno</option>
-        </select>
-    </div>
-    <div class="col-md-2 form-group">
-        <label for="txtAlertaSBNRegistral">Alerta SBN/Registral</label>
-        <select id="txtAlertaSBNRegistral" class="form-control select2">
-            <option selected>--SELECCIONE--</option>
-        </select>
-    </div>
+  <div class="col-md-2 form-group">
+    <label for="cboCompetencia">Competencia</label>
+    <select id="cboCompetencia" class="form-control select2">
+      <option selected>SBN SISTEMA NACIONAL</option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label for="txtDenominaciónPredio" class="form-label"
+      >Denominación de Predio</label
+    >
+    <textarea
+      class="form-control"
+      style="text-transform: uppercase; font-size: small"
+      maxlength="150"
+      cols="30"
+    >
+INSTITUCION EDUCATIVA N° 16478 - LOTE N° 4</textarea
+    >
+  </div>
+  <div class="col-md-2 form-group">
+    <label for="txtReserva">Reserva</label>
+    <select id="txtReserva" class="form-control select2">
+      <option selected>Ninguno</option>
+    </select>
+  </div>
+  <div class="col-md-2 form-group">
+    <label for="txtAlertaSBNRegistral">Alerta SBN/Registral</label>
+    <select id="txtAlertaSBNRegistral" class="form-control select2">
+      <option selected>--SELECCIONE--</option>
+    </select>
+  </div>
 </div>
-<br>
+<br />
 <fieldset class="border rounded-3 p-3">
-    <legend class="float-none w-auto px-3"><strong> Documentos Relacionados</strong></legend>
-    <div class="row">
-        <div class="col-md-3">
-            <label for="txtSolicitudIngreso" class="form-label">Solicitud de Ingreso</label>
-            <input type="text" class="form-control" id="txtSolicitudIngreso" value="05830-2001">
-        </div>
-        <div class="col-md-3 form-group">
-            <label for="cboExpedientes">Expedientes
-            </label>
-            <select id="cboExpedientes" class="form-control select2">
-                <option selected></option>
-            </select>
-        </div>
-        <div class="col-md-3 form-group">
-            <label for="cboPredios" class="form-label">Predios</label>
-            <select id="cboPredios" class="form-control select2">
-                <option selected></option>
-            </select>
-        </div>
+  <legend class="float-none w-auto px-3">
+    <strong> Documentos Relacionados</strong>
+  </legend>
+  <div class="row">
+    <div class="col-md-3">
+      <label for="txtSolicitudIngreso" class="form-label"
+        >Solicitud de Ingreso</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="txtSolicitudIngreso"
+        value="05830-2001"
+      />
     </div>
+    <div class="col-md-3 form-group">
+      <label for="cboExpedientes">Expedientes </label>
+      <select id="cboExpedientes" class="form-control select2">
+        <option selected></option>
+      </select>
+    </div>
+    <div class="col-md-3 form-group">
+      <label for="cboPredios" class="form-label">Predios</label>
+      <select id="cboPredios" class="form-control select2">
+        <option selected></option>
+      </select>
+    </div>
+  </div>
 </fieldset>
-<br>
+<br />
 <div class="row g-3">
-    <div class="col-md-8">
-        <fieldset class="border rounded-3 p-3">
-            <legend class="float-none w-auto px-3"><strong>Ubicación/Dirección</strong></legend>
-            <div class="row">
-                <div class="col-md-3 form-group">
-                    <label for="cboVia" class="form-label">Vía</label>
-                    <select id="cboVia" class="form-control select2">
-                        <option selected>UBICADO A 100M DE LA PLAYA DE TANIN POR EL CAMINO DE HERRADURA</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="txtDireccion" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="txtDireccion">
-                </div>
-                <div class="col-md-3">
-                    <label for="txtNumero" class="form-label">Número</label>
-                    <input type="text" class="form-control" id="txtNumero">
-                </div>
+  <div class="col-md-8">
+    <fieldset class="border rounded-3 p-3">
+      <legend class="float-none w-auto px-3">
+        <strong>Ubicación/Dirección</strong>
+      </legend>
+      <div class="row">
+        <div class="col-md-3 form-group">
+          <label for="cboVia" class="form-label">Vía</label>
+          <select id="cboVia" class="form-control select2">
+            <option selected>
+              UBICADO A 100M DE LA PLAYA DE TANIN POR EL CAMINO DE HERRADURA
+            </option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="txtDireccion" class="form-label">Dirección</label>
+          <input type="text" class="form-control" id="txtDireccion" />
+        </div>
+        <div class="col-md-3">
+          <label for="txtNumero" class="form-label">Número</label>
+          <input type="text" class="form-control" id="txtNumero" />
+        </div>
 
-                <div class="col-md-3">
-                    <label for="txtManzana" class="form-label">Manzana</label>
-                    <input type="text" class="form-control" id="txtManzana">
-                </div>
-                <div class="col-md-3">
-                    <label for="txtLote" class="form-label">Lote</label>
-                    <input type="text" class="form-control" id="txtLote">
-                </div>
-                <div class="col-md-3 form-group">
-                    <label for="cboDetalle" class="form-label">Detalle</label>
-                    <select id="cboDetalle" class="form-control select2">
-                        <option selected>--TIPO--</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label for="cboNroDetalle" class="form-label">Nº Detalle</label>
-                    <input type="text" class="form-control" id="cboNroDetalle">
-                </div>
+        <div class="col-md-3">
+          <label for="txtManzana" class="form-label">Manzana</label>
+          <input type="text" class="form-control" id="txtManzana" />
+        </div>
+        <div class="col-md-3">
+          <label for="txtLote" class="form-label">Lote</label>
+          <input type="text" class="form-control" id="txtLote" />
+        </div>
+        <div class="col-md-3 form-group">
+          <label for="cboDetalle" class="form-label">Detalle</label>
+          <select id="cboDetalle" class="form-control select2">
+            <option selected>--TIPO--</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="cboNroDetalle" class="form-label">Nº Detalle</label>
+          <input type="text" class="form-control" id="cboNroDetalle" />
+        </div>
 
-                <div class="col-md-3">
-                    <label for="txtPiso" class="form-label">Piso</label>
-                    <input type="text" class="form-control" id="txtPiso">
-                </div>
-                <div class="col-md-3 form-group">
-                    <label for="cboLocalizacion" class="form-label">Localización</label>
-                    <select id="cboLocalizacion" class="form-control select2">
-                        <option selected>CENTRO POBLADO</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="txtDescLocalizacion" class="form-label">Descripción de Localización</label>
-                    <input type="text" class="form-control" id="txtDescLocalizacion" value="DE TANIN">
-                </div>
+        <div class="col-md-3">
+          <label for="txtPiso" class="form-label">Piso</label>
+          <input type="text" class="form-control" id="txtPiso" />
+        </div>
+        <div class="col-md-3 form-group">
+          <label for="cboLocalizacion" class="form-label">Localización</label>
+          <select id="cboLocalizacion" class="form-control select2">
+            <option selected>CENTRO POBLADO</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="txtDescLocalizacion" class="form-label"
+            >Descripción de Localización</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="txtDescLocalizacion"
+            value="DE TANIN"
+          />
+        </div>
 
-                <div class="col-md-12">
-                    <label for="txtReferencia" class="form-label">Referencia</label>
-                    <input type="text" class="form-control" id="txtReferencia">
-                </div>
-
-
-            </div>
-        </fieldset>
-    </div>
-    <div class="col-md-4">
-
-        <fieldset class="border rounded-3 p-3">
-            <legend class="float-none w-auto px-3"><strong>Ubicación Geográfica</strong> </legend>
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="cboDepartamento" class="form-label">Departamento</label>
-                    <select id="cboDepartamento" class="form-control select2">
-                        <option selected>CAJAMARCA</option>
-                    </select>
-                </div>
-                <div class="col-md-12">
-                    <label for="cboProvincia" class="form-label">Provincia</label>
-                    <select id="cboProvincia" class="form-control select2">
-                        <option selected>SAN IGNACIO</option>
-                    </select>
-                </div>
-                <div class="col-md-12">
-                    <label for="cboDistrito" class="form-label">Distrito</label>
-                    <select id="cboDistrito" class="form-control select2">
-                        <option selected>LA COIPA</option>
-                    </select>
-                </div>
-            </div>
-        </fieldset>
-    </div>
-
+        <div class="col-md-12">
+          <label for="txtReferencia" class="form-label">Referencia</label>
+          <input type="text" class="form-control" id="txtReferencia" />
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="col-md-4">
+    <fieldset class="border rounded-3 p-3">
+      <legend class="float-none w-auto px-3">
+        <strong>Ubicación Geográfica</strong>
+      </legend>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="cboDepartamento" class="form-label">Departamento</label>
+          <select id="cboDepartamento" class="form-control select2">
+            <option selected>CAJAMARCA</option>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <label for="cboProvincia" class="form-label">Provincia</label>
+          <select id="cboProvincia" class="form-control select2">
+            <option selected>SAN IGNACIO</option>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <label for="cboDistrito" class="form-label">Distrito</label>
+          <select id="cboDistrito" class="form-control select2">
+            <option selected>LA COIPA</option>
+          </select>
+        </div>
+      </div>
+    </fieldset>
+  </div>
 </div>
